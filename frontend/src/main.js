@@ -3,13 +3,24 @@ import { getObjects } from './api.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 // 創建 Three.js 場景
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 10000);
-const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById("webgl") });
+const camera = new THREE.PerspectiveCamera(100, window.innerWidth / window.innerHeight, 0.1, 10000);
+const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById("webgl"), alpha: true });
+renderer.setClearColor(0x000000, 0);
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
+
 var x = 0;
 var y = 0;
 var z = 0;
+var a = 0;
+var b = 0;
+var c = 0;
+var i = 0;
+var j = 0;
+var k = 0;
+var g = 0;
+var o = 0;
+var p = 0;
 // 加載物件
 let cubeArr = [];
 let rotationSpeeds = [];
@@ -22,10 +33,30 @@ getObjects().then(objects => {
 
         // 解析 position，並設置物體的位置
         //const position = JSON.parse(obj.position);
+        if (obj.Quadrant === 1) {
         shape.position.set(x, y, z);
         x += 100;
         y += 50;
         z += 0;
+        }
+        else if ((obj.Quadrant === 2)) {
+            i += 100;
+            j -= 50;
+            k -= 0;
+            shape.position.set(i, j, k);
+        }
+        else if ((obj.Quadrant === 3)) {
+            g -= 100;
+            o += 50;
+            p -= 0;
+            shape.position.set(g, o, p);
+        }
+        else {
+            a -= 100;
+            b -= 50;
+            c -= 0;
+            shape.position.set(a, b, c);
+        }
         cubeArr.push(shape);
         rotationSpeeds.push({
             x: Math.random() * 0.02, // Random speed between 0 and 0.02 for X-axis
@@ -51,7 +82,7 @@ function createGeometry(obj) {
     }
 }
 
-camera.position.set(100, 0, 200);
+camera.position.set(0, 0, 200);
 
 // 創建 OrbitControls，讓相機可用鼠標控制
 const controls = new OrbitControls(camera, renderer.domElement);

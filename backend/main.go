@@ -21,6 +21,7 @@ type Object struct {
 	Position_x int  `gorm:"type:int"` // 在資料庫中存儲為 float8[]
 	Position_y int  `gorm:"type:int"`
 	Position_z int  `gorm:"type:int"`
+	Quadrant   int  `gorm:"type:int"`
 }
 
 const (
@@ -33,7 +34,7 @@ const (
 func main() {
 	// 連接資料庫
 	var err error
-	dsn := "host=localhost user=postgres password=s55660513 dbname=project port=5432 sslmode=disable"
+	dsn := "host=localhost user=op password=Op@1234 dbname=project port=5432 sslmode=disable"
 	db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Fatal("Database connection failed")
@@ -74,12 +75,13 @@ func seedObjects(db *gorm.DB) {
 	}
 
 	// **產生 10 筆隨機數據**
-	for i := 0; i < 100; i++ {
+	for i := 0; i < 200; i++ {
 		obj := Object{
-			Type:       rand.Intn(3),         // 0: 方塊, 1: 球體, 2: 三角形
-			Position_x: rand.Intn(200) - 100, // -100 ~ 100 之間
-			Position_y: rand.Intn(200) - 100,
-			Position_z: rand.Intn(200) - 100,
+			Type:       rand.Intn(3),   // 0: 方塊, 1: 球體, 2: 三角形
+			Position_x: rand.Intn(100), // -100 ~ 100 之間
+			Position_y: rand.Intn(100),
+			Position_z: rand.Intn(100),
+			Quadrant:   rand.Intn(4),
 		}
 		db.Create(&obj)
 	}
