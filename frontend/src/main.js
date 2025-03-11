@@ -35,26 +35,26 @@ getObjects().then(objects => {
         //const position = JSON.parse(obj.position);
         if (obj.Quadrant === 1) {
         shape.position.set(x, y, z);
-        x += 100;
-        y += 50;
-        z += 0;
+        x += 50;
+        y += 25;
+        z += 1;
         }
         else if ((obj.Quadrant === 2)) {
-            i += 100;
-            j -= 50;
-            k -= 0;
+            i += 50;
+            j -= 25;
+            k -= 1;
             shape.position.set(i, j, k);
         }
         else if ((obj.Quadrant === 3)) {
-            g -= 100;
-            o += 50;
-            p -= 0;
+            g -= 50;
+            o += 25;
+            p -= 1;
             shape.position.set(g, o, p);
         }
         else {
-            a -= 100;
-            b -= 50;
-            c -= 0;
+            a -= 50;
+            b -= 25;
+            c -= 1;
             shape.position.set(a, b, c);
         }
         cubeArr.push(shape);
